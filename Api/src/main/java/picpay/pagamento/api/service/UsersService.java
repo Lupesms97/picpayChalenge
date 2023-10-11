@@ -25,9 +25,6 @@ public class UsersService {
     TransactionRepository transactionRepository;
 
 
-
-
-
     public User createUser(User user){
         return usersRepository.save(user);
     }

@@ -43,6 +43,7 @@ public class TesteUserService {
         PaymentOrder paymentOrder = new PaymentOrder();
         paymentOrder.setEmailPayee("receiver@example.com");
         paymentOrder.setEmailPayer("payer@example.com");
+        paymentOrder.setValue(500.d);
 
         User receiver = new User();
         User payer = new User();
