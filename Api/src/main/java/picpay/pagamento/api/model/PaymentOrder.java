@@ -21,5 +21,5 @@ public class PaymentOrder {
 
     private String emailPayer;
 
-    private Double Value;
+    private Double value;
 }

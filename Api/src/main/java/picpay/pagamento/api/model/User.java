@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import picpay.pagamento.api.enums.TypeWallet;
+import picpay.pagamento.api.enums.UserType;
 
 @Data
 @Builder
@@ -26,10 +28,14 @@ public class User {
     @OneToOne(mappedBy = "userWallet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Wallet wallet;
 
-    public User(long identificador, String name, String email) {
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    public User(long identificador, String name, String email, UserType userType) {
         this.identificador = identificador;
         this.name = name;
         this.email = email;
+        this.userType = userType;
     }
 
 }

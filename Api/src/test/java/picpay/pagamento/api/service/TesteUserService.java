@@ -2,14 +2,12 @@ package picpay.pagamento.api.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import picpay.pagamento.api.enums.Status;
+import picpay.pagamento.api.exeptionhandle.CanPayStoreException;
 import picpay.pagamento.api.exeptionhandle.UserNotFoundException;
 import picpay.pagamento.api.model.PaymentOrder;
 import picpay.pagamento.api.model.User;
@@ -38,7 +36,7 @@ public class TesteUserService {
     }
 
     @Test
-    void testPaymentCompleted() {
+    void testPaymentCompleted() throws CanPayStoreException {
         // Mock de dados de teste
         PaymentOrder paymentOrder = new PaymentOrder();
         paymentOrder.setEmailPayee("receiver@example.com");
@@ -75,7 +73,7 @@ public class TesteUserService {
     }
 
     @Test
-    void testPaymentNotCompleted() {
+    void testPaymentNotCompleted() throws CanPayStoreException {
         // Mock de dados de teste
         PaymentOrder paymentOrder = new PaymentOrder();
         paymentOrder.setEmailPayee("receiver@example.com");

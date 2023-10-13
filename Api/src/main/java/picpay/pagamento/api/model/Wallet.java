@@ -34,8 +34,7 @@ public class Wallet implements Serializable {
     @JoinColumn(name = "user_id")
     private User userWallet;
 
-    @Enumerated(EnumType.STRING)
-    private TypeWallet typeWallet;
+
 
     public void addTransaction(Transaction transaction){
         this.transactions.add(transaction);

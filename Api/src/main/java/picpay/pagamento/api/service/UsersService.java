@@ -3,6 +3,7 @@ package picpay.pagamento.api.service;
 import picpay.pagamento.api.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import picpay.pagamento.api.exeptionhandle.CanPayStoreException;
 import picpay.pagamento.api.exeptionhandle.UserNotFoundException;
 import picpay.pagamento.api.model.PaymentOrder;
 import picpay.pagamento.api.model.Transaction;
@@ -35,7 +36,7 @@ public class UsersService {
 
 
 
-    public Status payment(PaymentOrder paymentOrder){
+    public Status payment(PaymentOrder paymentOrder) throws CanPayStoreException {
 
         User reciver;
         User payer;
