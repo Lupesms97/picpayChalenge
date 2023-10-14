@@ -1,14 +1,11 @@
 package picpay.pagamento.api.service;
 
 import picpay.pagamento.api.enums.Status;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import picpay.pagamento.api.exeptionhandle.CanPayStoreException;
 import picpay.pagamento.api.exeptionhandle.UserNotFoundException;
 import picpay.pagamento.api.model.PaymentOrder;
-import picpay.pagamento.api.model.Transaction;
 import picpay.pagamento.api.model.User;
-import picpay.pagamento.api.model.Wallet;
 import picpay.pagamento.api.repositories.TransactionRepository;
 import picpay.pagamento.api.repositories.UsersRepository;
 
@@ -16,22 +13,28 @@ import java.util.Optional;
 
 @Service
 public class UsersService {
-    @Autowired
+    final
     UsersRepository usersRepository;
 
-    @Autowired
+    final
     WalletService walletService;
 
-    @Autowired
+    final
     TransactionRepository transactionRepository;
 
+    final
+    GetAuth getAuth;
 
-    public User createUser(User user){
-        return usersRepository.save(user);
+    public UsersService(UsersRepository usersRepository, WalletService walletService, TransactionRepository transactionRepository, GetAuth getAuth) {
+        this.usersRepository = usersRepository;
+        this.walletService = walletService;
+        this.transactionRepository = transactionRepository;
+        this.getAuth = getAuth;
     }
 
-    public Wallet createWallet(User user){
-        return walletService.createWallet(user);
+
+    public String getGetAuthMethod() {
+        return getAuth.getAuthorization();
     }
 
 
@@ -53,6 +56,9 @@ public class UsersService {
         }
 
         Status status = walletService.paymentExecution(payer, reciver, paymentOrder);
+
+        getGetAuthMethod();
+
 
         if(Status.COMPLETED.equals(status)) {
 

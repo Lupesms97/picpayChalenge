@@ -30,6 +30,9 @@ public class TesteUserService {
     @Mock
     private WalletService walletService;
 
+    @Mock
+    GetAuth getAuth;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -46,6 +49,7 @@ public class TesteUserService {
         User receiver = new User();
         User payer = new User();
 
+        Mockito.when(getAuth.getAuthorization()).thenReturn("Authorizaded");
         Mockito.when(usersRepository.findUserByEmail("receiver@example.com")).thenReturn(Optional.of(receiver));
         Mockito.when(usersRepository.findUserByEmail("payer@example.com")).thenReturn(Optional.of(payer));
 

@@ -40,5 +40,8 @@ public class Wallet implements Serializable {
         this.transactions.add(transaction);
     }
 
-
+    public Wallet( User userWallet) {
+        this.balance = 0;
+        this.userWallet = userWallet;
+    }
 }

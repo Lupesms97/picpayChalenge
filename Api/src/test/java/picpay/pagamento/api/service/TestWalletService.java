@@ -39,6 +39,8 @@ public class TestWalletService {
     @Mock
     private UsersRepository usersRepository;
 
+
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
