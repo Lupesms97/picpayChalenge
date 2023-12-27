@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import picpay.pagamento.api.enums.TypeWallet;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Queue;
 
 
@@ -16,16 +15,14 @@ import java.util.Queue;
 @AllArgsConstructor
 @Entity
 @Builder
-public class Wallet implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "wallet_id")
     private String id;
 
-    private double balance;
+    private BigDecimal balance;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
     private Queue<Transaction> transactions;
@@ -34,14 +31,16 @@ public class Wallet implements Serializable {
     @JoinColumn(name = "user_id")
     private User userWallet;
 
-
-
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(final Transaction transaction){
         this.transactions.add(transaction);
     }
 
-    public Wallet( User userWallet) {
-        this.balance = 0;
+    private Wallet( User userWallet) {
+        this.balance = BigDecimal.ZERO;
         this.userWallet = userWallet;
+    }
+
+    public static Wallet createWallet(final User userWallet){
+        return new Wallet(userWallet);
     }
 }

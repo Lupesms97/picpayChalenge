@@ -1,10 +1,12 @@
-package picpay.pagamento.api.model;
+package picpay.pagamento.api.model.paymentOrder;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -21,5 +23,8 @@ public class PaymentOrder {
 
     private String emailPayer;
 
-    private Double value;
+    private BigDecimal value;
+
+
+
 }

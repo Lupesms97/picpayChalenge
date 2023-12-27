@@ -5,26 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import picpay.pagamento.api.enums.Status;
+import picpay.pagamento.api.model.paymentOrder.PaymentOrder;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "transaction")
-public class Transaction implements Serializable {
+public class Transaction {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "transaction_id")
     private String id;
 
-    private LocalDateTime date;
+    private Instant date;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -36,10 +34,14 @@ public class Transaction implements Serializable {
     @ManyToOne
     @JoinColumn(name = "wallet_id")
     private Wallet wallet;
-    public Transaction(PaymentOrder paymentOrder, Status status) {
-        this.date = LocalDateTime.now();
+    private Transaction(final PaymentOrder paymentOrder, final Status status) {
         this.status = status;
         this.paymentOrder = paymentOrder;
+        this.date = Instant.now();
+    }
+
+    public static Transaction createTransaction(final PaymentOrder paymentOrder, final Status status){
+        return new Transaction(paymentOrder, status);
     }
 
 

@@ -5,7 +5,7 @@ import picpay.pagamento.api.model.User;
 
 import java.util.Optional;
 
-public interface UsersRepository extends JpaRepository<User, Long> {
+public interface UsersRepository extends JpaRepository<User, String> {
 
     Optional<User> findUserByEmail(String email);
 }

@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import picpay.pagamento.api.enums.TypeWallet;
 import picpay.pagamento.api.enums.UserType;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -18,9 +20,11 @@ public class User {
     @Id
     @Column(name = "user_id", unique = true)
     // CPF ou CNPJ
-    private long identificador;
+    private String identifier;
 
     private String name;
+
+    private String password;
 
     @Column( unique = true)
     private String email;
@@ -31,11 +35,24 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    public User(long identificador, String name, String email, UserType userType) {
-        this.identificador = identificador;
+    private String token;
+
+    private LocalDateTime created_at ;
+
+    private LocalDateTime updated_at ;
+
+    private LocalDateTime deleted_at ;
+
+    public User(final String identificador, final String name, final String email, final UserType userType, String password) {
+        this.identifier = identificador;
         this.name = name;
         this.email = email;
         this.userType = userType;
+        this.token =  UUID.randomUUID().toString();
+        this.password = password;
     }
+
+
+
 
 }
